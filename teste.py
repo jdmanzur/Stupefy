@@ -1,6 +1,6 @@
 from spotipy.oauth2 import SpotifyClientCredentials
 import spotipy
-import json
+
 
 #consegue autorização pelas credenciais cadastradas no My Application do Spotify
 #não esquecer de passar como parâmetro o id do cliente e o secret id da appliacção
