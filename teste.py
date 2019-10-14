@@ -17,6 +17,7 @@ spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 
 uri = input("Insira uma uri válida de uma playlist do spotify:" )
 
+#TODO: ajeitar codigo abaixo depois para generalizar para qualquer URI
 username = ' '
 playlist_id = uri.split(':')[2]
 
