@@ -1,6 +1,9 @@
+#!/usr/bin/env python
+
 import httplib2
 import json
 import spotipy
+import config
 
 from apiclient.discovery import build
 from apiclient.errors import HttpError
@@ -21,12 +24,10 @@ def get_playlist_tracks(username,playlist_id):
 
 #consegue autorização pelas credenciais cadastradas no My Application do Spotify
 #não esquecer de passar como parâmetro o id do cliente e o secret id da appliacção
-client_credentials_manager = SpotifyClientCredentials(client_id="cd23967850ec488ea054f39ba6ad5161", client_secret="5fe09923eda44e58a37d610fcc1d6bbe")
+client_credentials_manager = SpotifyClientCredentials(client_id=config.SPCLIENT_ID, client_secret=SPCLIENT_SECRET)
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 #AUTH youtube
-CLIENT_SECRETS_FILE = "client_secrets.json"
-API_KEY = "AIzaSyCkwKbt6WlZHSw7xV18xxwfkT-OZeDnwXc"
-youtube = build('youtube', 'v3' , developerKey = API_KEY)
+youtube = build('youtube', 'v3' , developerKey = config.YTAPI_KEY)
 
 ################################################################
 
