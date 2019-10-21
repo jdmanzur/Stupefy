@@ -1,6 +1,5 @@
 import httplib2
-import os
-import sys
+import json
 import spotipy
 
 from apiclient.discovery import build
@@ -11,7 +10,6 @@ from oauth2client.tools import argparser, run_flow
 from spotipy.oauth2 import SpotifyClientCredentials
 
 #PARTE SPOTIFY
-
 def get_playlist_tracks(username,playlist_id):
     results = spotify.user_playlist_tracks(username,playlist_id)
     tracks = results['items']
@@ -34,24 +32,19 @@ youtube = build('youtube', 'v3' , developerKey = API_KEY)
 
 
 uri = input("Insira uma uri válida de uma playlist do spotify:" )
-
-#TODO: ajeitar codigo abaixo depois para generalizar para qualquer URI
-username = ' '
+#separa o id da playlist do resto da URI
 playlist_id = uri.split(':')[2]
 
-tracks = get_playlist_tracks(username, playlist_id)
+tracks = get_playlist_tracks('', playlist_id)
 
 
 #pesquisa no youtube os resultados do spotify
-for track in tracks.get("track", []):
+for i, item in enumerate(tracks):
     track = item['track']
-    query = "" + track['artists']['name'] + ' ' + track['name']
-
+    query = str(track['artists'][0]['name']) + ' ' + str(track['name'])
 
     res = youtube.search().list(q = query, part = 'snippet', type = 'video')
     result = res.execute()
 
     for search_result in result.get("items", []):
         print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
-
-    
