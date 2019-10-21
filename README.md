@@ -1,4 +1,4 @@
-#Stupefy
+**Stupefy**
 ===========
     This is a software made with Python3 without any means to profit.
 
