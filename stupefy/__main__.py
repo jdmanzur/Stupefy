@@ -3,7 +3,8 @@
 import httplib2
 import json
 import spotipy
-import config
+
+from settings_config import config
 
 from apiclient.discovery import build
 from apiclient.errors import HttpError
