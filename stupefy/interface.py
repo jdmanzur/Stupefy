@@ -15,3 +15,13 @@ def print_progress_bar (iteration, total, prefix = '', suffix = '', decimals = 1
 
     if iteration == total: 
         print()
+
+def print_quota_warning(total):
+    print("\nSorry bud, we really wanted to convert all your %d songs, but due to Youtube limitations we can only do 50 songs a day" % total)
+    print("We can still convert the first 50 tracks tho, so it's not that bad! :)\n")
+    answer = input("Do you still want it? Y/N\n")
+
+    return answer
+
+def print_goodbye():
+    print("\nThanks for using Stupefy, see you later\n")
