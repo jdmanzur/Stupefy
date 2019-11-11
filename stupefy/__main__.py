@@ -64,6 +64,22 @@ def create_youtube_playlist(user_title, user_description):
     return playlists_insert_response["id"]
 
 
+def insert_video(playlist_id, video_id, client):
+
+    add_video_request=youtube.playlistItems().insert(
+        part="snippet",
+        body={
+                'snippet': {
+                  'playlistId': playlist_id, 
+                  'resourceId': {
+                        'kind': 'youtube#video',
+                        'videoId': video_id
+                    }
+                }
+        }
+    ).execute()
+
+
 interface.print_welcome_message()
 
 #AUTH spotify
@@ -90,7 +106,7 @@ if tracks == None:
 user_title = input("Tell us what shall be thy playlist name: ")
 user_description = input("I hate this as much as you do but you need to add a description: ")
 
-playlist_id = create_youtube_playlist(user_title, user_description);
+yt_playlist_id = create_youtube_playlist(user_title, user_description);
 
 
 total = len(list(tracks)) 
@@ -106,13 +122,14 @@ for i, item in enumerate(tracks):
     #atualiza a barrinha de progresso
     interface.print_progress_bar(i + 1, total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
-    #
+    
     #gets only the first result, due to quota issues
-    #res = youtube.search().list(q = query, part = 'snippet', type = 'video', maxResults=1);
-    #result = res.execute()
+    res = youtube.search().list(q = query, part = 'snippet', type = 'video', maxResults=1);
+    result = res.execute()
 
-    #for search_result in result.get("items", []):
+    for search_result in result.get("items", []):
         #print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
+        insert_video(yt_playlist_id, search_result["id"]["videoId"], youtube)
 
 
 
