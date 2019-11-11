@@ -1,6 +1,7 @@
 #!/usr/bin/env python
 
 from oauth2client.client import flow_from_clientsecrets
+from google_auth_oauthlib.flow import InstalledAppFlow
 from spotipy.oauth2 import SpotifyClientCredentials
 from oauth2client.tools import argparser, run_flow
 from apiclient.errors import HttpError
@@ -15,7 +16,10 @@ import time
 import json
 import sys
 
-
+def get_authenticated_service(): 
+  flow = InstalledAppFlow.from_client_secrets_file(config.YTCLIENT_SECRETS_FILE, config.SCOPES) 
+  credentials = flow.run_console()
+  return build('youtube', 'v3', credentials= credentials)
 
 def get_playlist_tracks(username, playlist_id):
     #this function gets a user playlist, by the URI and returns the tracklist json object
@@ -68,11 +72,11 @@ interface.print_welcome_message()
 client_credentials_manager = SpotifyClientCredentials(client_id= config.SPCLIENT_ID, client_secret=config.SPCLIENT_SECRET)
 spotify = spotipy.Spotify(client_credentials_manager=client_credentials_manager)
 #AUTH youtube
-youtube = build('youtube', 'v3' , developerKey = config.YTAPI_KEY)
+youtube = get_authenticated_service()
 ################################################################
 
 
-uri = input("Please, paste a valid Spotify URI: " )
+uri = input("\n\nPlease, paste a valid Spotify URI: " )
 #separates the playlist id from the rest of the URI
 playlist_id = uri.split(':')[2]
 #gets playlists tracks by using the function defined before
@@ -91,7 +95,7 @@ playlist_id = create_youtube_playlist(user_title, user_description);
 
 total = len(list(tracks)) 
 #começa a printar a barrinha de progresso
-interface.print_progress_bar(0, total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+interface.print_progress_bar(0, total, prefix = '\nProgress:', suffix = 'Complete', length = 50)
 #pesquisa no youtube os resultados do spotify
 for i, item in enumerate(tracks):
 
@@ -110,5 +114,7 @@ for i, item in enumerate(tracks):
     #for search_result in result.get("items", []):
         #print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
 
-    interface.print_goodbye()
-    sys.exit
+
+
+interface.print_goodbye()
+sys.exit
