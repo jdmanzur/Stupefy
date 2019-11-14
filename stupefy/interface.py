@@ -25,3 +25,8 @@ def print_quota_warning(total):
 
 def print_goodbye():
     print("\nThanks for using Stupefy, see you later\n")
+
+
+def print_quota_error_message():
+    print("Oh, no! We're so sorry buddy, but we can only do 50 songs a day due to Youtube limitations, the previous songs converted until now are present in the playlist you created, but we can't convert anymore songs. We are terribly sorry and hope you had a nice experience the same way")
+    print("You can still try it out another day, huh? Hope to see you soon...")

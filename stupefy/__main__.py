@@ -102,7 +102,6 @@ if tracks == None:
     sys.exit()
 
 #gets information for the playlist and creates it
-#FIXME: Login Required
 user_title = input("Tell us what shall be thy playlist name: ")
 user_description = input("I hate this as much as you do but you need to add a description: ")
 
@@ -122,16 +121,19 @@ for i, item in enumerate(tracks):
     #atualiza a barrinha de progresso
     interface.print_progress_bar(i + 1, total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
-    
-    #gets only the first result, due to quota issues
-    res = youtube.search().list(q = query, part = 'snippet', type = 'video', maxResults=1);
-    result = res.execute()
+    try:
+        #gets only the first result, due to quota issues
+        res = youtube.search().list(q = query, part = 'snippet', type = 'video', maxResults=1);
+        result = res.execute()
 
-    for search_result in result.get("items", []):
-        #print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
-        insert_video(yt_playlist_id, search_result["id"]["videoId"], youtube)
+        for search_result in result.get("items", []):
+            #print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
+            insert_video(yt_playlist_id, search_result["id"]["videoId"], youtube)
 
+    except userRateLimitExceeded:
+        interface.print_quota_error_message()
 
+    finally:
 
-interface.print_goodbye()
-sys.exit
+    interface.print_goodbye()
+    sys.exit
