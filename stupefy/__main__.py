@@ -105,23 +105,24 @@ if tracks == None:
 user_title = input("Tell us what shall be thy playlist name: ")
 user_description = input("I hate this as much as you do but you need to add a description: ")
 
-yt_playlist_id = create_youtube_playlist(user_title, user_description);
+try:
+
+    yt_playlist_id = create_youtube_playlist(user_title, user_description);
 
 
-total = len(list(tracks)) 
-#começa a printar a barrinha de progresso
-interface.print_progress_bar(0, total, prefix = '\nProgress:', suffix = 'Complete', length = 50)
-#pesquisa no youtube os resultados do spotify
-for i, item in enumerate(tracks):
+    total = len(list(tracks)) 
+    #começa a printar a barrinha de progresso
+    interface.print_progress_bar(0, total, prefix = '\nProgress:', suffix = 'Complete', length = 50)
+    #pesquisa no youtube os resultados do spotify
+    for i, item in enumerate(tracks):
 
-    track = item['track']
-    query = str(track['artists'][0]['name']) + ' ' + str(track['name'])
-    
-    time.sleep(0.1)
-    #atualiza a barrinha de progresso
-    interface.print_progress_bar(i + 1, total, prefix = 'Progress:', suffix = 'Complete', length = 50)
+        track = item['track']
+        query = str(track['artists'][0]['name']) + ' ' + str(track['name'])
+        
+        time.sleep(0.1)
+        #atualiza a barrinha de progresso
+        interface.print_progress_bar(i + 1, total, prefix = 'Progress:', suffix = 'Complete', length = 50)
 
-    try:
         #gets only the first result, due to quota issues
         res = youtube.search().list(q = query, part = 'snippet', type = 'video', maxResults=1);
         result = res.execute()
@@ -130,10 +131,9 @@ for i, item in enumerate(tracks):
             #print ("%s (%s)" % (search_result["snippet"]["title"], search_result["id"]["videoId"]))
             insert_video(yt_playlist_id, search_result["id"]["videoId"], youtube)
 
-    except userRateLimitExceeded:
-        interface.print_quota_error_message()
+except:
+    interface.print_quota_error_message()
 
-    finally:
-
+finally:
     interface.print_goodbye()
     sys.exit
