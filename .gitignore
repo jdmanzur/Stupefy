@@ -1,2 +1,4 @@
 -*config.py
 -stupefy/settings_config/client_secret.json
+stupefy/settings_config/client_secret.json
+stupefy/settings_config/config.py
