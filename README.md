@@ -70,10 +70,14 @@ OBS: o projeto se encontra todo em inglês, devido às API's utilizadas, que pos
 * Jade Manzur de Almeida ([jdmanzur](https://github.com/jdmanzur))
 
 ## Imagens/screenshots
-É necessário colocar pelo menos 3 imagens/screenshots do projeto, porém fiquem a vontade para colocar mais, a medida do que vocês acharem legal para ilustrar o projeto.
 
-Para colocar imagens no Readme do Github, vocês podem usar o seguinte comando (abrir este Readme no modo raw ou como txt):
+Interface gráfica no terminal, criada com pyfiglet
+![Imagem](https://github.com/jdmanzur/Stupefy/blob/master/photos/Screenshot_1.png)
 
-![Imagem](https://github.com/Infinitemarcus/Hackerspace-template/blob/master/exemplo.png)
+Trecho do código em python, com a organização dos diretórios ao lado
+![Imagem](https://github.com/jdmanzur/Stupefy/blob/master/photos/Screenshot_5.png)
 
-É preferível que vocês usem imagens hospedadas no próprio GitHub do projeto. É só referenciar o link delas no comando acima.
+Flow de autorização da conta do google, para que a aplicação crie a playlist
+![Imagem](https://github.com/jdmanzur/Stupefy/blob/master/photos/Screenshot_2.png)
+![Imagem](https://github.com/jdmanzur/Stupefy/blob/master/photos/Screenshot_3.png)
+![Imagem](https://github.com/jdmanzur/Stupefy/blob/master/photos/Screenshot_4.png)
